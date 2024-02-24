@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <title>Clone Instagram</title>
+    <style>
+        @import url("css/default.css");
+        @import url("css/gnb.css");
+
+        .wrapper {
+            width: 80%;
+            display: flex;
+            margin-top: -70px
+        }
+
+        .tengah {
+            width: 95%;
+        }
+
+        .status-wrapper {
+            height: 120px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px 0 10px 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .status-card {
+            flex: 0 0 auto;
+            width: 80px;
+            max-width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 15px;
+            margin-top: 15px;
+        }
+
+        .profile-pic {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            padding: 3px;
+            background: linear-gradient(45deg, #ffe600, #ff0080 80%);
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        .username {
+            width: 100%;
+            overflow: hidden;
+            text-align: center;
+            font-size: 12px;
+            margin-top: 5px;
+            color: #00000080;
+        }
+
+        .feed {
+            width: 500px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            font-size: 13px;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            height: auto;
+            margin-top: 20px
+        }
+
+        .profile {
+            justify-content: space-between;
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .profile>p {
+            margin-left: 18px;
+            margin-right: auto;
+        }
+
+        .profile>p>span:first-child {
+            font-weight: 700;
+            margin-bottom: 5px;
+            margin-right: auto;
+        }
+
+        .img-wrap {
+            border-radius: 50%;
+            overflow: hidden;
+            border: 0.5px solid #f2f2f2;
+            display: flex;
+        }
+
+        .account {
+
+            width: 440px;
+            margin-top: 10px;
+            font-size: 14px
+        }
+
+        .account-content {
+            width: 150%;
+        }
+
+        .account-content>li {
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .account-content>li>p {
+            margin-left: 20px;
+            margin-right: auto;
+            align-items: flex-start;
+        }
+
+        .account-content>li>p>span:first-child {
+            font-weight: 700;
+            color: #000;
+        }
+
+        .account-content>li>p>span:last-child {
+            color: gray;
+        }
+
+        .account-content>li>a {
+            color: #0999f6;
+            font-size: 13px;
+        }
+
+        li.suggestion>span {
+            color: gray;
+        }
+
+        li.suggestion>a {
+            color: #000;
+        }
+
+        .imgs>div>img {
+            width: 470px;
+        }
+
+        .feed-icons {
+            width: 92%;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .feed-icons>img {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .feed-icons>img:last-child {
+            margin-left: auto;
+        }
+
+        .likes {
+            margin-right: auto;
+            margin-left: 20px;
+            font-weight: bold;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .comments {
+            width: 92%;
+            margin-top: 5px;
+            margin-right: 130px;
+        }
+
+        .comments>span.title {
+            font-weight: bold;
+        }
+
+        .comments>span.hashtag {
+            color: darkblue;
+        }
+
+        .count {
+            margin-left: 20px;
+            margin-right: auto;
+            color: lightgray;
+
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .time {
+            margin-left: 20px;
+            margin-right: auto;
+            font-size: 10px;
+            color: lightgray;
+        }
+
+        .swiper {
+            width: 470px;
+        }
+
+        .swiper-button-prev,
+        .swiper-button-next {
+
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .swiper-button-prev:after,
+        .swiper-button-next:after {
+            font-size: 12px;
+            color: white;
+            font-weight: bold;
+
+        }
+
+        .swiper-pagination-bullet {
+            background-color: white;
+        }
+
+        .about>a {
+            color: #d3d3d3;
+            font-size: 11px;
+            margin-right: 2px;
+        }
+
+        .name {
+            color: #d3d3d3;
+            font-size: 11px;
+            margin-right: auto;
+        }
+        .sidebar > li.sidebar-content1 > img {
+            border-radius: 50%;
+        }
+    </style>
+    <script>
+        let is_liked = true;
+        function like() {
+            if (is_liked == true) {
+                $('#heart').attr('src', 'image/icons/12.png')
+                is_liked = false;
+            } else {
+                $('#heart').attr('src', 'image/icons/5.png')
+                is_liked = true;
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <div id="root">
+        <div class="main">
+            <div class="sidebar">
+                <li class="flex-row">
+                    <img width="102" src="image/logo_instagram.png">
+                </li>
+                <li class="flex-row sidebar-content">
+                    <img src="image/icons/1.png">
+                    <p class="bold">Home</p>
+                </li>
+                <li class="flex-row sidebar-content">
+                    <img src="image/icons/13.png">
+                    <p>Search</p>
+                </li>
+                <li class="flex-row sidebar-content">
+                    <img src="image/icons/4.png">
+                    <p>Explore</p>
+                </li>
+                <li class="flex-row sidebar-content">
+                    <img src="image/icons/14.png">
+                    <p>Reels</p>
+                </li>
+                <li class="flex-row sidebar-content">
+                    <img src="image/icons/15.png">
+                    <p>Messages</p>
+                </li>
+                <li class="flex-row sidebar-content">
+                    <img src="image/icons/5.png">
+                    <p>Notifications</p>
+                </li>
+                <li class="flex-row sidebar-content">
+                    <img src="image/icons/3.png">
+                    <p>Create</p>
+                </li>
+                <li class="flex-row sidebar-content1">
+                    <img width="32" src="image/icons/profile.jpg">
+                    <p>Profile</p>
+                </li>
+                <li class="flex-row sidebar-content">
+                    <img src="image/icons/16.png">
+                    <p>More</p>
+                </li>
+            </div>
+            <div class="wrapper">
+                <div class="tengah flex-col">
+                    <div class="status-wrapper">
+                        <div class="status-card">
+                            <div class="profile-pic">
+                                <img width="32" src="image/following/1.jpg">
+                            </div>
+                            <p class="username"> tzigans_</p>
+                        </div>
+                        <div class="status-card">
+                            <div class="profile-pic">
+                                <img width="32" src="image/following/9.jpg">
+                            </div>
+                            <p class="username"> smkn.sukasari</p>
+                        </div>
+                        <div class="status-card">
+                            <div class="profile-pic">
+                                <img width="32" src="image/following/3.jpg">
+                            </div>
+                            <p class="username"> davaalrasyid_18</p>
+                        </div>
+                        <div class="status-card">
+                            <div class="profile-pic">
+                                <img width="32" src="image/following/4.jpg">
+                            </div>
+                            <p class="username"> fahmicvc</p>
+                        </div>
+                        <div class="status-card">
+                            <div class="profile-pic">
+                                <img width="32" src="image/following/6.jpg">
+                            </div>
+                            <p class="username"> nisaasuci</p>
+                        </div>
+                        <div class="status-card">
+                            <div class="profile-pic">
+                                <img width="32" src="image/following/5.png">
+                            </div>
+                            <p class="username"> padlaadrn</p>
+                        </div>
+                        <div class="status-card">
+                            <div class="profile-pic">
+                                <img width="32" src="image/following/7.png">
+                            </div>
+                            <p class="username">hmickyfadlhur</p>
+                        </div>
+                        <div class="status-card">
+                            <div class="profile-pic">
+                                <img width="32" src="image/following/10.jpg">
+                            </div>
+                            <p class="username"> LearningX</p>
+                        </div>
+
+                    </div>
+                    <div class="feed flex-col">
+                        <div class="profile flex-row">
+                            <div class="img-wrap">
+                                <img width="32" src="image/following/8.jpg" alt="">
+                            </div>
+                            <p class="flex-col">
+                                <span>abdullohazzam</span>
+                                <span>Manglayang Mountain, Indonesia</span>
+                            </p>
+                            <img width="20" src="image/icons/7.png">
+                        </div>
+                        <div class="imgs swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="image/post/5.jpeg">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="image/post/7.jpeg">
+                                </div>
+                            </div>
+                            <!-- If we need pagination -->
+                            <div class="swiper-pagination"></div>
+
+                            <!-- If we need navigation buttons -->
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+
+                        </div>
+                        <div class="feed-icons flex-row">
+                            <img id="heart" onclick="like()" src="image/icons/5.png">
+                            <img src="image/icons/9.png">
+                            <img src="image/icons/2.png">
+                            <img src="image/icons/10.png">
+                        </div>
+                        <div class="likes">
+                            9,999 likes
+                        </div>
+                        <div class="comments">
+                            <span class="title">abdullohazzam</span>
+                            Jangan lupa nafas
+                            <span class="hashtag">#manglayangmountain </span>
+                        </div>
+                        <div class="count">
+                            View All 169 Comments
+                        </div>
+                        <div class="time">
+                            20 HOURS AGO
+                        </div>
+                    </div>
+
+                </div>
+                <div class="account">
+                    <div class="account-content">
+                        <li class="flex-row">
+                            <div class="img-wrap">
+                                <img width="56" src="image/icons/profile.jpg">
+                            </div>
+                            <p class="flex-col">
+                                <span>zamabdllh</span>
+                                <span>azzam</span>
+                            </p>
+                            <a href="#">Switch</a>
+                        </li>
+                        <li class="flex-row suggestion">
+                            <span>Suggestions for you</span>
+                            <a href="#">See All</a>
+                        </li>
+                        <li class="flex-row friends">
+                            <div class="img-wrap">
+                                <img width="32" src="image/following/11.jpg">
+                            </div>
+                            <p class="flex-col">
+                                <span>Realmadrid</span>
+                                <span>Suggested for you</span>
+                            </p>
+                            <a href="#">Follow</a>
+                        </li>
+                        <li class="flex-row friends">
+                            <div class="img-wrap">
+                                <img width="32" src="image/following/12.jpg">
+                            </div>
+                            <p class="flex-col">
+                                <span>itb1920</span>
+                                <span>Followed by padlaadrn + 7 more</span>
+                            </p>
+                            <a href="#">Follow</a>
+                        </li>
+                        <li class="flex-row friends">
+                            <div class="img-wrap">
+                                <img width="32" src="image/following/13.png">
+                            </div>
+                            <p class="flex-col">
+                                <span>apple</span>
+                                <span>Suggested for you</span>
+                            </p>
+                            <a href="#">Follow</a>
+
+                        </li>
+                    
+                        </li>
+                        <div class="about">
+                            <a href="#">About</a>
+                            <a href="#">Help</a>
+                            <a href="#">Press</a>
+                            <a href="#">API</a>
+                            <a href="#">Jobs</a>
+                            <a href="#">Privacy</a>
+                            <a href="#">Terms</a>
+                            <a href="#">Locations</a>
+                            <a href="#">Languange</a>
+                            <a href="#">Meta Verified</a>
+                        </div>
+                        <div class="name">
+                            © 2024 INSTAGRAM FROM META
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+
+            // If we need pagination
+            pagination: {
+                el: '.swiper-pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // And if we need scrollbar
+        });
+    </script>
+</body>
+
+</html>
